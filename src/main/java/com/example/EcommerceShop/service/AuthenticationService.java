@@ -1,5 +1,6 @@
-package com.example.EcommerceShop.security;
+package com.example.EcommerceShop.service;
 
+import com.example.EcommerceShop.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
