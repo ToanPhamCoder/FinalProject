@@ -1,6 +1,6 @@
 package com.example.EcommerceShop.controller;
 
-import com.example.EcommerceShop.entity.User;
+import com.example.EcommerceShop.entity.Customer;
 import com.example.EcommerceShop.request.AuthenticationRequest;
 import com.example.EcommerceShop.security.JwtUtil;
 import com.example.EcommerceShop.service.AuthenticationService;
@@ -21,29 +21,29 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @Autowired
-    private UserService userService;
+    private UserService customerService;
 
     @Autowired
     private JwtUtil jwtUtil;
 
     @PostMapping("/authenticate")
     public String createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
-        return authenticationService.authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
+        return authenticationService.authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user) {
-        if (userService.register(user)) {
+    public ResponseEntity<?> register(@RequestBody Customer user) {
+        if (customerService.register(user)) {
             return ResponseEntity.ok(Map.of("status", "success"));
         }
         return ResponseEntity.status(400).body(Map.of("status", "error", "message", "Username already exists"));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User user) {
-        return userService.login(user.getUsername(), user.getPassword())
-                .map(u -> {
-                    String token = jwtUtil.generateToken(u.getUsername());
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequest authenticationRequest) {
+        return customerService.login(authenticationRequest.getEmail(), authenticationRequest.getPassword())
+                .map(customer -> {
+                    String token = jwtUtil.generateToken(customer.getEmail());
                     return ResponseEntity.ok(Map.of("status", "success", "token", token));
                 })
                 .orElse(ResponseEntity.status(400).body(Map.of("status", "error", "message", "Invalid credentials")));

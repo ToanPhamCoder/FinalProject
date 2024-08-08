@@ -1,10 +1,11 @@
 package com.example.EcommerceShop.repositiory;
 
-import com.example.EcommerceShop.entity.User;
+import com.example.EcommerceShop.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
-
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByUsername(String username);
+@Repository
+public interface UserRepository extends JpaRepository<Customer, Long> {
+    Optional<Customer> findByEmail(String email);
 }
