@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -20,10 +22,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/authenticate","/register", "/login","/validate").permitAll()
-                        .requestMatchers("/validate").authenticated()
-                        .anyRequest().authenticated()
+                        .anyRequest()
+                        .authenticated())
+                .cors(with -> with
+                        .configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues())); // Enable CORS
 
-                );
         return http.build();
     }
 

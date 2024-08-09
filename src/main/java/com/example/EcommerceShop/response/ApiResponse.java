@@ -4,26 +4,24 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 
 public class ApiResponse<T> {
-    private boolean error = true;
+    private int code = 1000;
 
     private String message;
     private T result;
-
     public ApiResponse() {
     }
-
-    public ApiResponse(boolean error, String message, T result) {
-        this.error = error;
+    public ApiResponse(int code, String message, T result) {
+        this.code = code;
         this.message = message;
         this.result = result;
     }
 
-    public boolean isError() {
-        return error;
+    public int getCode() {
+        return code;
     }
 
-    public void setError(boolean error) {
-        this.error = error;
+    public void setCode(int code) {
+        this.code = code;
     }
 
     public String getMessage() {

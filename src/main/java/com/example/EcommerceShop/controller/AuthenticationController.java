@@ -2,6 +2,7 @@ package com.example.EcommerceShop.controller;
 
 import com.example.EcommerceShop.entity.Customer;
 import com.example.EcommerceShop.request.AuthenticationRequest;
+import com.example.EcommerceShop.response.ApiResponse;
 import com.example.EcommerceShop.response.RegistrationResult;
 import com.example.EcommerceShop.security.JwtUtil;
 import com.example.EcommerceShop.service.AuthenticationService;
@@ -33,9 +34,15 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public RegistrationResult register(@RequestBody Customer user) {
+    public ResponseEntity<ApiResponse<RegistrationResult>> register(@RequestBody Customer user) {
 
-        return customerService.register(user);
+        RegistrationResult registrationResult = customerService.register(user);
+        ApiResponse<RegistrationResult> apiResponse = new ApiResponse<>();
+        apiResponse.setResult(registrationResult);
+        apiResponse.setCode(200);
+        apiResponse.setMessage("User created successfully");
+
+        return ResponseEntity.ok(apiResponse);
     }
 
     @PostMapping("/login")
