@@ -79,6 +79,17 @@
 			<artifactId>jaxb-runtime</artifactId>
 			<version>2.3.1</version>
 		</dependency>
+		<!--Dùng để validate dữ liệu, kiểm tra dữ liệu notNull, độ dài...-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.24</version> <!-- Phiên bản mới nhất tại thời điểm viết -->
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

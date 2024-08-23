@@ -8,6 +8,7 @@ import com.example.EcommerceShop.security.JwtUtil;
 import com.example.EcommerceShop.service.AuthenticationService;
 import com.example.EcommerceShop.service.UserService;
 import io.jsonwebtoken.Claims;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse<RegistrationResult>> register(@RequestBody Customer user) {
+    public ResponseEntity<ApiResponse<RegistrationResult>> register(@RequestBody @Valid Customer user) {
 
         RegistrationResult registrationResult = customerService.register(user);
         ApiResponse<RegistrationResult> apiResponse = new ApiResponse<>();

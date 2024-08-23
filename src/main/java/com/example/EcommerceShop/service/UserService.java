@@ -22,26 +22,18 @@ public class UserService {
 
     public RegistrationResult register(Customer customer) {
         RegistrationResult registrationResult = new RegistrationResult();
-        StringBuilder errorMessage = new StringBuilder();
-        boolean isError = false;
-
-
-
         Optional<Customer> customerExist = customerRepository.findByEmail(customer.getEmail());
         if (customerExist.isPresent()) {
-            errorMessage.append("Email already exists ");
-            isError = true;
             throw new AppException(ErrorCode.USER_EXISTED);
         }
-
-        registrationResult.setError(isError);
-        registrationResult.setErrorMessage(errorMessage.toString());
-        if(!isError){
-            customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
+        customer.setName(customer.getName());
+        customer.setAddress(customer.getAddress());
+        customer.setPhone(customer.getPhone());
+        customer.setPassword(bCryptPasswordEncoder.encode(customer.getPassword()));
             customer.setDateCreated(new java.util.Date()); // set the current date
             customerRepository.save(customer);
             registrationResult.setCustomer(customer);
-        }
+
         return registrationResult;
     }
 

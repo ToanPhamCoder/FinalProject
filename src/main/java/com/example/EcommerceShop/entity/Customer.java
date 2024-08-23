@@ -1,6 +1,8 @@
 package com.example.EcommerceShop.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 import java.util.Date;
 @Entity
@@ -12,12 +14,18 @@ public class Customer {
 
     private int customerId;
 
+    @NotBlank(message = "Phải nhập tên") // Dùng để kiểm tra nếu người dùng không nhập báo lỗi
     private String name;
 
     private String email;
 
     private String password;
+
+    @NotBlank(message = "Phải nhập địa chỉ")
     private String address;
+
+    @Pattern(regexp = "^\\d{10}$", message = "Số điện thoại không hợp lệ")
+    @NotBlank(message = "Phải nhập số điện thoại")
     private String phone;
 
     @Temporal(TemporalType.DATE)

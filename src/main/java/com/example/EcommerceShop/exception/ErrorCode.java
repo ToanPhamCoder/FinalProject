@@ -6,7 +6,9 @@
     public enum ErrorCode {
 
         USER_EXISTED(1002, "User existed", HttpStatus.BAD_REQUEST),
+        INVALID_KEY(1001, "Uncategorized error", HttpStatus.BAD_REQUEST),
         ;
+
         ErrorCode(int code, String message, HttpStatusCode statusCode) {
             this.code = code;
             this.message = message;
