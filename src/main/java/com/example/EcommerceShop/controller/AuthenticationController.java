@@ -74,4 +74,8 @@ public class AuthenticationController {
             return ResponseEntity.status(400).body(Map.of("status", "error", "message", "Invalid token"));
         }
     }
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello, World!";
+    }
 }
